@@ -27,6 +27,14 @@ class Extrato {
 		return date("d/m/Y, H:i", strtotime($this->data));
 	}
 
+	/**
+	 * Formats the custo to 99,99
+	 * @return string formated custo
+	 */
+	public function getCustoFormated(){
+		return number_format($this->custo, 2, ",", "");
+	}
+
     /**
      * Get the value of Id
      *
