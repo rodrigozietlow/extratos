@@ -1,5 +1,5 @@
 <?php
-namespace App\Modelo\Extrato;
+namespace Modelo\Extrato;
 
 class Extrato {
 
@@ -7,6 +7,7 @@ class Extrato {
 	private $custo;
 	private $descricao;
 	private $data;
+	private $conta;
 
 	/**
 	 * Constructor of class Extrato
@@ -96,6 +97,25 @@ class Extrato {
      */
     public function setData($data) {
         $this->data = $data;
+    }
+
+
+    /**
+     * Get the value of Conta
+     *
+     * @return mixed
+     */
+    public function getConta() {
+        return $this->conta;
+    }
+
+    /**
+     * Set the value of Conta
+     *
+     * @param mixed conta
+     */
+    public function setConta($conta) {
+        $this->conta = $conta;
     }
 
 }

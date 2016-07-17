@@ -1,29 +1,32 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL | E_STRICT); // E_STRICT should technically be used too
-require_once $_SERVER['DOCUMENT_ROOT']."/extratos/Modelo/DataMappers/ExtratoMapperMySql.class.php";
+use Modelo\Extrato;
+use Modelo\Extrato\interfaces;
 
-$mapper = new App\Modelo\Extrato\ExtratoMapperMySql();
-echo "<table border='1'>";
-foreach($mapper->getAll(0, 50, "data ASC") as $extrato){
+require_once $_SERVER['DOCUMENT_ROOT']."/extratos/config.inc.php";
+
+$mapper = new Extrato\MapperMySQL();
+echo "<table border='1' cellspacing='0'>";
+foreach($mapper->getAll(1, 0, 50, "data ASC") as $extrato){
 	echo "<tr>";
 	echo "<td>".$extrato->getId()."</td>";
 	echo "<td>".nl2br($extrato->getDescricao())."</td>";
 	echo "<td>".$extrato->getCusto()."</td>";
 	echo "<td>".$extrato->getDateFormated()."</td>";
+	echo "<td>".$extrato->getConta()."</td>";
 	echo "</tr>";
 }
 echo "</table>";
 
-$extratoNovo = new App\Modelo\Extrato\Extrato();
-$extratoNovo->setDescricao("Bakuman 4, 5, 6 por depósito Caixa");
+$extratoNovo = new Extrato\Extrato();
+$extratoNovo->setDescricao("BIG TESTE");
 $extratoNovo->setCusto(-30);
+$extratoNovo->setConta(1);
 //$extratoNovo = $mapper->save($extratoNovo); // uncomment to use
 
 
 echo "<hr>";
 
-$extratoBd = new App\Modelo\Extrato\Extrato(12);
+$extratoBd = new Extrato\Extrato(27);
 try{
 	$extratoBd = $mapper->fill($extratoBd);
 	echo "<table border='1'>";
@@ -32,6 +35,7 @@ try{
 	echo "<td>".nl2br($extratoBd->getDescricao())."</td>";
 	echo "<td>".$extratoBd->getCusto()."</td>";
 	echo "<td>".$extratoBd->getDateFormated()."</td>";
+	echo "<td>".$extratoBd->getConta()."</td>";
 	echo "</tr>";
 	echo "</table>";
 } catch(Exception $e){
@@ -40,7 +44,7 @@ try{
 
 echo "<hr>";
 
-$extratoAdeletar = new App\Modelo\Extrato\Extrato(12);
+$extratoAdeletar = new Extrato\Extrato(27);
 try{
 	$extratoBd = $mapper->fill($extratoAdeletar);
 	if($mapper->delete($extratoBd)){
