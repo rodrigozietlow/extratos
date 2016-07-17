@@ -4,38 +4,31 @@ require_once $_SERVER['DOCUMENT_ROOT']."/extratos/config.inc.php";
 
 class Router{
 
-	private $arrayUrl = array(
-		"errors/404" => array(
-			"Controle" => "\\Controle\\Common\\Errors",
-			"Action" => "404",
-			"extras" => array()
-		),
-		"extratos/lista" => array(
-			"Controle" => "Controle\\Extrato\\Controle",
-			"Action" => "Listar",
-			"extras" => array(
-				"conta" => 1,
-				"pagina" => 1
-			)
-		)
-	);
-	public function __construct($url){ // vamos receber a url como extratos/lista/conta=1/pagina=1, extratos/detalhes/id=456
-		$parsed = array_filter(explode("/", $url));
-		$action = $parsed[0]."/".$parsed[1];
+	/**
+	 * Constructor of base app router
+	 * @param string $url will receive urls and call aproppriate methods from the controllers, catching exceptions as needed
+	 */
+	public function __construct($url){
+		$parsed = array_values(array_filter(explode("/", $url)));
+		$controller = "\\Controle\\".ucwords(strtolower($parsed[0]))."\\Controle"; // namespaces
+		$action = strtolower($parsed[1]);
+		$params = array();
 		if(count($parsed) > 2){
 			for($x=2;$x<count($parsed);$x++){
-				$attr = explode("=", $parsed[$x]); // pega a info separada no igual
-				$this->arrayUrl[$action]["extras"][$attr[0]] = $attr[1];
+				$params[] = $parsed[$x];
 			}
 		}
-		if(in_array($action, array_keys($this->arrayUrl))){
-			$flow = $this->arrayUrl[$action];
-		} else{
-			$flow = $this->arrayUrl["errors/404"];
+		try{
+			$reflectionMethod = new \ReflectionMethod($controller, $action);
+			if($reflectionMethod->getNumberOfRequiredParameters() > count($params)){
+				throw new InvalidParamsException();
+			}
+			$reflectionMethod->invokeArgs(new $controller, $params);
+		} catch(NotFoundException $e){
+			echo "Ops, esta página não existe.";
+		} catch(InvalidParamsException $e){
+			echo "Ops, você está tentando fazer uma operação inválida!";
 		}
-
-		$controlador = new $flow["Controle"];
-		$controlador->{$flow['Action']}($flow['extras']);
 	}
 }
 ?>

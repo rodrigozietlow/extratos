@@ -8,6 +8,9 @@ class View {
 		include $_SERVER['DOCUMENT_ROOT']."/extratos/View/Extrato/HTML/listar.php";
 	}
 
+	public function index($extrato){
+		include $_SERVER['DOCUMENT_ROOT']."/extratos/View/Extrato/HTML/index.php";
+	}
 }
 
 ?>

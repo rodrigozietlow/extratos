@@ -9,4 +9,6 @@ define("HOST","localhost");
 define("USUARIO","root");
 define("SENHA","");
 define("BANCO","meus_gastos");
+
+define("ABS_VAL", true);
 ?>

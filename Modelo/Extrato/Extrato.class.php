@@ -31,8 +31,13 @@ class Extrato {
 	 * Formats the custo to 99,99
 	 * @return string formated custo
 	 */
-	public function getCustoFormated(){
-		return number_format($this->custo, 2, ",", "");
+	public function getCustoFormated($abs = false){
+		if($abs){
+			$number = abs($this->custo);
+		} else{
+			$number = $this->custo;
+		}
+		return number_format($number, 2, ",", "");
 	}
 
     /**

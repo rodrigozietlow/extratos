@@ -2,21 +2,11 @@
 <html>
 	<head>
 		<title>Lista de extratos</title>
-		<link href="View/estilos.css" rel="stylesheet">
+		<?php include "includes/head.php"; ?>
 	</head>
 
 	<body>
-		<div class="cabecalho">
-			<div class="logo1">
-				<a href="index.php">Extratos</a>
-			</div>
-			<div class="menu-item">
-				<a href="extratos-lista.php">Lista de extratos</a>
-			</div>
-			<div class="menu-item">
-				<a href="extratos-novo.php">Novo extrato</a>
-			</div>
-		</div>
+		<?php include "includes/cabecalho.php"; ?>
 
 		<div class="conteudo">
 			<div class="container">
@@ -30,7 +20,7 @@
 					if(!empty($extratos)){
 						foreach($extratos as $extrato){
 							?>
-							<a href="extratos-detalhes.php?id=<?=$extrato->getId();?>" class="well margin-top-1">
+							<a href="extrato/detalhes/<?=$extrato->getId();?>" class="well margin-top-1">
 								<p class="bold"><?=$extrato->getDateFormated();?> &mdash; R$ <?=$extrato->getCustoFormated();?></p>
 								<p><?=$extrato->getDescricao();?></p>
 							</a>

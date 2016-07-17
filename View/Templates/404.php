@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>404 - Página não encontrada</title>
-		<link href="View/estilos.css" rel="stylesheet">
+		<link href="../estilos.css" rel="stylesheet">
 	</head>
 
 	<body>
