@@ -11,7 +11,7 @@ class MapperMySQL implements interfaces\iMapper{
 
 	private $conexao;
 
-	public function __construct(DIC $dicontainer){
+	public function __construct(){
 		$this->conexao = new \PDO('mysql:host='.HOST.';dbname='.BANCO, USUARIO, SENHA); // setup the connection to use inside the object
 	}
 
@@ -60,13 +60,13 @@ class MapperMySQL implements interfaces\iMapper{
 	 * @param Extrato $extrato the extrato to be filled
 	 * @return Extrato filled extrato
 	 */
-	public function getByID($id){
+	public function fill(Extrato\Extrato $extrato){
 		$stmt = $this->conexao->prepare("SELECT * FROM extratos WHERE id = :id");
 		$resultado = $stmt->execute(array(
-			":id" => $id
+			":id" => $extrato->getId()
 		));
 		if($stmt->rowCount()){
-			$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+			$stmt->setFetchMode(\PDO::FETCH_CLASS, __namespace__."\\Extrato");
 			$extrato = $stmt->fetch();
 		} else{
 			throw new \Exception("Ops, este registro não foi encontrado!");
