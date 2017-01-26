@@ -28,12 +28,14 @@
 						}
 					}
 					else{
-						?>
-						<div class='margin-top-1'>
+						echo "
+						<tr class='margin-top-1'>
+							<td>
 							Ops, nenhum extrato encontrado
-						</div>
-						<?php
+							</td>
+						</tr>";
 					}
+					echo "</table>";
 					?>
 					<div class="clear-both"></div>
 				</div>
