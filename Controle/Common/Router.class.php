@@ -28,6 +28,8 @@ class Router{
 			echo "Ops, esta página não existe.";
 		} catch(InvalidParamsException $e){
 			echo "Ops, você está tentando fazer uma operação inválida!";
+		} catch(ReflectionException $e) {
+			echo "404 Not Found";
 		}
 	}
 }
