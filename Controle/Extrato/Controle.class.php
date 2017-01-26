@@ -8,7 +8,7 @@ class Controle {
 		if(!$conta || !$pagina || !is_numeric($conta) || !is_numeric($pagina) || $pagina<1){
 			throw new \Controle\Common\InvalidParamsException();
 		}
-		$nrRegistros = 6;
+		$nrRegistros = 9;
 		$comecar = ($pagina - 1) * $nrRegistros;
 
 		$mapper = new \Modelo\Extrato\MapperMySQL();
