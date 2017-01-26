@@ -4,13 +4,13 @@ namespace Modelo\Extrato;
 class Extrato {
 
 	private $id;
-	private $custo;
+	private $cost;
 	private $descricao;
 	private $data;
 	private $conta;
 
 	/**
-	 * Constructor of class Extrato
+	 * Class constructor
 	 * @param int id
 	 */
 	public function __construct($id=null){
@@ -28,14 +28,14 @@ class Extrato {
 	}
 
 	/**
-	 * Formats the custo to 99,99
-	 * @return string formated custo
+	 * Formats the cost to 99,99
+	 * @return string formated cost
 	 */
-	public function getCustoFormated($abs = false){
+	public function getCostFormated($abs = false){
 		if($abs){
-			$number = abs($this->custo);
+			$number = abs($this->cost);
 		} else{
-			$number = $this->custo;
+			$number = $this->cost;
 		}
 		return number_format($number, 2, ",", "");
 	}
@@ -63,8 +63,8 @@ class Extrato {
      *
      * @return mixed
      */
-    public function getCusto() {
-        return $this->custo;
+    public function getCost() {
+        return $this->cost;
     }
 
     /**
@@ -72,8 +72,8 @@ class Extrato {
      *
      * @param mixed custo
      */
-    public function setCusto($custo) {
-        $this->custo = $custo;
+    public function setCost($cost) {
+        $this->cost = $cost;
     }
 
     /**
