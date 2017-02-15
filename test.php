@@ -5,6 +5,7 @@ use Modelo\Extrato\interfaces;
 require_once $_SERVER['DOCUMENT_ROOT']."/extratos/config.inc.php";
 
 $mapper = new Extrato\MapperMySQL();
+
 echo "<table border='1' cellspacing='0'>";
 foreach($mapper->getAll(1, 0, 50, "data ASC") as $extrato){
 	echo "<tr>";
@@ -17,6 +18,7 @@ foreach($mapper->getAll(1, 0, 50, "data ASC") as $extrato){
 }
 echo "</table>";
 
+/*
 $extratoNovo = new Extrato\Extrato();
 $extratoNovo->setDescricao("BIG TESTE");
 $extratoNovo->setCusto(-30);
@@ -55,4 +57,15 @@ try{
 } catch(Exception $e){
 	echo "Registro não encontrado.";
 }
+*/
+echo "<hr><pre>";
+
+
+$extrato = $mapper->getById(26);
+$mapper->loadItems($extrato);
+print_r($extrato);
+
+
+
+echo "</pre>";
 ?>

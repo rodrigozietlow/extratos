@@ -6,8 +6,10 @@ class Extrato {
 	private $id;
 	private $custo;
 	private $descricao;
+	private $fonte;
 	private $data;
 	private $conta;
+	private $itens;
 
 	/**
 	 * Constructor of class Extrato
@@ -24,7 +26,7 @@ class Extrato {
 	 * @return string formated date
 	 */
 	public function getDateFormated(){
-		return date("d/m/Y, H:i", strtotime($this->data));
+		return date("d/m/Y à\s H:i", strtotime($this->data));
 	}
 
 	/**
@@ -129,6 +131,44 @@ class Extrato {
      */
     public function setConta($conta) {
         $this->conta = $conta;
+    }
+
+
+    /**
+     * Get the value of Fonte
+     *
+     * @return mixed
+     */
+    public function getFonte() {
+        return $this->fonte;
+    }
+
+    /**
+     * Set the value of Fonte
+     *
+     * @param mixed fonte
+     */
+    public function setFonte($fonte) {
+        $this->fonte = $fonte;
+    }
+
+
+    /**
+     * Get the value of Itens
+     *
+     * @return mixed
+     */
+    public function getItens() {
+        return $this->itens;
+    }
+
+    /**
+     * Set the value of Itens
+     *
+     * @param mixed itens
+     */
+    public function setItens($itens) {
+        $this->itens = $itens;
     }
 
 }

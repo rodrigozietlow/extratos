@@ -25,6 +25,20 @@ class Controle {
 		$extratoMaisRecente = $mapper->getAll(1, 0, 1)[0];
 		$view->index($extratoMaisRecente);
 	}
+
+	public function detalhes($id_extrato){
+		if(!is_numeric($id_extrato)){
+			throw new \Controle\Common\InvalidParamsException();
+		}
+
+		$mapper = new \Modelo\Extrato\MapperMySQL();
+		$view = new \View\Extrato\View();
+
+		$extrato = $mapper->getById($id_extrato);
+		$mapper->loadItems($extrato);
+
+		$view->detalhes($extrato);
+	}
 }
 
 ?>

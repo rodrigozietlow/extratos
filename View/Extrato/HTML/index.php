@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Página inicial</title>
+		<title>Extratos - Página inicial</title>
 		<?php include "includes/head.php"; ?>
 	</head>
 
 	<body>
 		<?php include "includes/cabecalho.php"; ?>
-		
+
 		<div class="conteudo">
 			<div class="container">
 				<h2 class="title">Seus extratos</h2>

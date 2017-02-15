@@ -11,6 +11,10 @@ class View {
 	public function index($extrato){
 		include $_SERVER['DOCUMENT_ROOT']."/extratos/View/Extrato/HTML/index.php";
 	}
+
+	public function detalhes($extrato){
+		include $_SERVER['DOCUMENT_ROOT']."/extratos/View/Extrato/HTML/detalhes.php";
+	}
 }
 
 ?>

@@ -6,10 +6,10 @@ interface iMapper {
 
 	public function save(Extrato\Extrato $extrato);
 
-	public function fill(Extrato\Extrato $extrato);
+	public function getById($id);
 
 	public function getAll($tipo, $begin, $limit, $order);
 
-	public function delete(Extrato\Extrato $extrato);
+	public function delete($id);
 }
 ?>

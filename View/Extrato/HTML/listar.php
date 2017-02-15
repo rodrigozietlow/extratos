@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Lista de extratos</title>
+		<title>Extratos - Lista de extratos</title>
 		<?php include "includes/head.php"; ?>
 	</head>
 

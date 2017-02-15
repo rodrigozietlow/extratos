@@ -23,15 +23,15 @@ class MapperMySQL implements interfaces\iMapper{
 	/**
 	 * Saves the actual object into saldo table
 	 * @param Extrato $extrato
-	 * @return Extrato
 	 */
 	 public function save(Extrato\Extrato $extrato){
 
 		if(!$extrato->getId()){ // it's an insert if it does not have an id
-			$stmt = $this->conexao->prepare("INSERT INTO extratos (custo, descricao, conta) VALUES (:custo, :descricao, :conta)");
+			$stmt = $this->conexao->prepare("INSERT INTO extratos (custo, descricao, fonte, conta) VALUES (:custo, :descricao, :fonte, :conta)");
 			$resultado = $stmt->execute(array(
 				":custo" => $extrato->getCusto(),
 				":descricao" => $extrato->getDescricao(),
+				":fonte" => $extrato->getFonte(),
 				":conta" => $extrato->getConta()
 			));
 
@@ -40,18 +40,17 @@ class MapperMySQL implements interfaces\iMapper{
 		}
 
 		else{ // update, do query accordingly
-			$stmt = $this->conexao->prepare("UPDATE extratos SET custo = :custo, descricao = :descricao, data = :data, conta = :conta WHERE id=:id");
+			$stmt = $this->conexao->prepare("UPDATE extratos SET custo = :custo, descricao = :descricao, fonte = :fonte, data = :data, conta = :conta WHERE id=:id");
 			$resultado = $stmt->execute(array(
 				":custo" => $extrato->getCusto(),
 				":descricao" => $extrato->getDescricao(),
+				":fonte" => $extrato->getFonte(),
 				":id" => $extrato->getId(),
 				":data" => $extrato->getData(),
 				":conta" => $extrato->getConta()
 			));
 
 		}
-
-		return $extrato;
 
 	}
 
@@ -60,16 +59,18 @@ class MapperMySQL implements interfaces\iMapper{
 	 * @param Extrato $extrato the extrato to be filled
 	 * @return Extrato filled extrato
 	 */
-	public function fill(Extrato\Extrato $extrato){
-		$stmt = $this->conexao->prepare("SELECT * FROM extratos WHERE id = :id");
-		$resultado = $stmt->execute(array(
-			":id" => $extrato->getId()
-		));
+	public function getById($id){
+		$stmt = $this->conexao->prepare(
+			"SELECT *
+			FROM extratos
+			WHERE id = :id"
+		);
+		$resultado = $stmt->execute(array(":id" => $id));
 		if($stmt->rowCount()){
 			$stmt->setFetchMode(\PDO::FETCH_CLASS, __namespace__."\\Extrato");
 			$extrato = $stmt->fetch();
-		} else{
-			throw new \Exception("Ops, este registro não foi encontrado!");
+		} else {
+			throw new \Controle\Common\NotFoundException("Ops, este registro não foi encontrado!");
 		}
 
 		$stmt = null; // limpar
@@ -88,9 +89,8 @@ class MapperMySQL implements interfaces\iMapper{
 	 */
 	public function getAll($conta, $begin, $limit, $order="data DESC"){
 		$stmt = $this->conexao->prepare(
-			"SELECT e.id, e.data, e.descricao, e.custo, c.nome as conta
-			FROM extratos e
-			INNER JOIN contas c ON c.id = e.conta
+			"SELECT *
+			FROM extratos
 			WHERE conta = :conta
 			ORDER BY $order
 			LIMIT $begin, $limit"
@@ -106,18 +106,34 @@ class MapperMySQL implements interfaces\iMapper{
 
 	/**
 	 * Delete extrato from database
-	 * @param Extrato $extrato the extrato to be deleted
+	 * @param int $id the id of the extrato to be deleted
 	 * @return bol
 	 */
-	public function delete(Extrato\Extrato $extrato){
-		$resultado = true; // lets begin result as true
-		if($extrato->getId()){
-			$stmt = $this->conexao->prepare("DELETE FROM extratos WHERE id = :id");
-			$resultado = $stmt->execute(array(":id" => $extrato->getId()));
-		}
-		$extrato = null;
+	public function delete($id){
+		$stmt = $this->conexao->prepare("DELETE FROM extratos WHERE id = :id");
+		$resultado = $stmt->execute(array(":id" => $id));
 
 		return $resultado;
+	}
+
+
+	/**
+	 * Load items from given extract
+	 * @param  Extrato $extrato
+	 */
+	public function loadItems(Extrato\Extrato $extrato){
+		// to do alterar para getAll do mapper de item
+		$stmt = $this->conexao->prepare("SELECT * FROM itens WHERE idExtrato = :idExtrato");
+		$stmt->execute(array(":idExtrato" => $extrato->getId()));
+		/*
+		if($stmt->rowCount()){
+		*/
+			$extrato->setItens($stmt->fetchAll(\PDO::FETCH_CLASS, "\\Modelo\\Item\\Item"));
+		/*
+		} else{
+			$extrato->setItens(array());
+		}
+		 */
 	}
 }
 
