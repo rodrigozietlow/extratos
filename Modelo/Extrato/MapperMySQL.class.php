@@ -3,10 +3,7 @@ namespace Modelo\Extrato;
 use Modelo\Extrato\interfaces;
 use Modelo\Extrato;
 require_once $_SERVER['DOCUMENT_ROOT']."/extratos/config.inc.php";
-/*
-require_once $_SERVER['DOCUMENT_ROOT']."/extratos/Modelo/Extrato.class.php";
-require_once $_SERVER['DOCUMENT_ROOT']."/extratos/Modelo/DataMappers/iExtratoMapper.class.php";
-*/
+
 class MapperMySQL implements interfaces\iMapper{
 
 	private $conexao;

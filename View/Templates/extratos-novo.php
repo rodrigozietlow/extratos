@@ -34,7 +34,7 @@
 				</div>
 
 				<div class="form-wrap margin-top-05">
-					<textarea name="descricao" rows="5" class="form form-full" placeholder="Adicione uma descri&ccedil;&atilde;o para este extrato"></textarea>
+					<textarea name="descricao" rows="5" class="form form-full" placeholder="Adicione uma descrição para este extrato"></textarea>
 				</div>
 			</div>
 		</div>

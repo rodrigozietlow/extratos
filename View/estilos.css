@@ -151,10 +151,10 @@ textarea{
     box-sizing: border-box;
     border: 3px solid #ccc;
     outline: none;
-	color: #bbb;
+	color: #3CBC8D;
     -webkit-transition: 0.5s;
     transition: 0.5s;
-	transition-property: background-color,border,color;
+	transition-property: background-color,border-color,color;
 }
 .form:focus{
     border: 3px solid #3CBC8D;

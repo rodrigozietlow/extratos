@@ -26,7 +26,7 @@ class Extrato {
 	 * @return string formated date
 	 */
 	public function getDateFormated(){
-		return date("d/m/Y à\s H:i", strtotime($this->data));
+		return date("d/m/Y Ã \s H:i", strtotime($this->data));
 	}
 
 	/**
